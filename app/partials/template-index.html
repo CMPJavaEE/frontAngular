@@ -1,0 +1,127 @@
+<div id="HomePage" 
+     ng-controller="ToolbarCtrl">
+    <!-- Carousel -->
+    <div id="myCarousel" 
+         class="carousel slide"
+         data-ride="carousel">
+        <!-- Slides -->
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <img src="./img/carrousel-accueil-slide-1.jpg" />
+                <div class="slide-text-container">
+                    <div class="slide-text">
+                        Les meilleurs <span class="slide-text-strong">professionnels</span> pour les meilleurs <span class="slide-text-strong">projets</span>
+                    </div>
+                    <div class="button-slider-container">
+                        <a class="button-slider pointer" 
+                           ng-click="showDialogInscription($event)" 
+                           ng-show="loggedIn !== true">
+                            INSCRIVEZ-VOUS
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="./img/carrousel-accueil-slide-2.jpg" />
+                <div class="slide-text-container">
+                    <div class="slide-text" style="color:#3F51B5;">
+                        Venez discuter de vos idées</br>autour d'un café</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Controls -->
+        <div class="carrousel-control-left-container">
+            <a class="left carousel-control" 
+               data-target="#myCarousel"
+               role="button"
+               data-slide="prev">
+                <span class="ion-ios-arrow-back" 
+                      aria-hidden="true"></span>
+            </a>
+        </div>
+        <div class="carrousel-control-right-container">
+            <a class="right carousel-control" 
+               data-target="#myCarousel"
+               role="button"
+               data-slide="next">
+                <span class="ion-ios-arrow-forward"
+                      aria-hidden="true"></span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Macarons -->
+    <div class="macaron-container">
+        <div class="col-sm-10 col-sm-offset-1">
+            <div class="col-xs-12 col-md-4">
+                <div class="macaron">
+                    <span class="ion-earth"></span>
+                </div>
+                <div class="macaron-text">
+                    <div class="macaron-text-title">
+                        Notre réseau
+                    </div>
+                    Un réseau unique composé de<br/>
+                    professionnels aguerris
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <div class="macaron">
+                    <span class="ion-ribbon-b"></span>
+                </div>
+                <div class="macaron-text">
+                    <div class="macaron-text-title">
+                        Le recrutement
+                    </div>
+                    Un recrutement efficace, simple<br/>
+                    et plus rapide
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <div class="macaron">
+                    <span class="ion-planet"></span>
+                </div>
+                <div class="macaron-text">
+                    <div class="macaron-text-title">
+                        Votre projet
+                    </div>
+                    Tout le nécessaire pour mettre<br/>
+                    votre projet en orbite
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <!-- Inscription -->
+    <div class="inscription-section">
+        <div class="col-xs-12 col-md-7 inscription-section-text">
+            Venez proposer votre propre projet
+        </div>
+        <div class="col-xs-12 col-md-5">
+            <a class="inscription-section-button pointer" 
+               ng-click="showDialogInscription($event)"
+               ng-show="loggedIn !== true">
+                Inscrivez-vous
+            </a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <!-- Testimonials -->
+    <div class="testimonials-section">
+        <div class="testimonials-container">
+            <div class="col-xs-12 col-md-4 testimonials-picture-container">
+                <img class="testimonial-picture" src="./img/testimonial-picture.jpg" />
+            </div>
+            <div class="col-xs-12 col-md-8 testimonials-text">
+                <span class="quote-left ion-quote"></span><span class="quote-right ion-quote"></span>
+                <div class="testimonials-text-content">
+                    J'avais besoin de quelqu'un pour créer un site d'e-commerce. Je l'ai trouvé en moins de 2 jours ! 
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

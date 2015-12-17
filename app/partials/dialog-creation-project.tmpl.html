@@ -1,0 +1,58 @@
+<md-dialog aria-label="Création d'un projet"  
+           ng-cloak 
+           ng-controller="ToolbarCtrl">
+    <md-dialog-content layout-padding 
+                       layout="column" 
+                       layout-wrap>
+        <md-input-container flex>
+            <label>Nom du projet *</label>
+            <input ng-model='project.projectName' 
+                   placeholder="Nom du projet" 
+                   required>
+        </md-input-container>
+        <md-input-container flex-gt="50">
+            <label>Budget du projet *</label>
+            <input type="number"
+                   ng-model='project.projectBudget'
+                   placeholder="Budget du projet" 
+                   required>
+        </md-input-container>
+        <md-input-container flex-gt='50' 
+                            flex-sm='100'>
+            <label>Durée du projet (en jours) *</label>
+            <input type="number" 
+                   ng-model='project.projectDelay' 
+                   placeholder="Durée du projet (en jours)"
+                   required>
+        </md-input-container>
+
+        <!--Image du projet-->
+
+        <md-input-container flex>
+            <label>Description du projet</label>
+            <textarea id="editeur" 
+                      ng-model="project.description" 
+                      name="editeur"
+                      class="ckeditor"
+                      aria-label="Description du projet"></textarea>
+        </md-input-container>
+        <md-input-container flex>
+            <label>Image:</label>
+            <div ng-controller="photoUploadCtrl">
+                    <div class="form_line">
+                        <label>Image:</label>
+                        <div class="form_controls">
+                            <div class="upload_button_holder">
+                                <div href="#" class="upload_button" ngf-select="uploadFiles($files)" multiple title="upload" resetOnClick="true" >Upload</div>
+                            </div>
+                        </div>
+                    </div>
+              </div>
+        </md-input-container>
+        <span style="color: gray;">Tous les champs portant une * sont obligatoires.</span>
+        <md-button class="md-primary md-raised" 
+                   ng-click="createProject()">
+            Création du projet
+        </md-button>
+    </md-dialog-content>
+</md-dialog>

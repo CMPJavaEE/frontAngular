@@ -1,0 +1,36 @@
+<md-dialog aria-label="Connexion" 
+           ng-cloak ng-controller="ToolbarCtrl">
+    <form>
+        <md-dialog-content layout-padding 
+                           layout="column">
+            <p class="error" 
+               ng-if="erreurLogin">
+                Login ou mot de passe incorrect
+            </p>
+            <span layout="row">
+                <md-input-container flex>
+                    <label>Adresse e-mail ou login</label>
+                    <input type="text" 
+                           ng-model="user.mail" 
+                           placeholder="Adresse e-mail" 
+                           required>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Mot de passe</label>
+                    <input type="password" 
+                           ng-model="user.password" 
+                           placeholder="Mot de passe" 
+                           required>
+                </md-input-container>
+            </span>
+            <a class="pointer" 
+               ng-click="showDialogForgotPassword($event)">
+                Mot de passe oublié ?
+            </a>
+            <md-button class="md-primary md-raised" 
+                       ng-click="connection()">
+                Connexion
+            </md-button>
+        </md-dialog-content>
+    </form>
+</md-dialog>

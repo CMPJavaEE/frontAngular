@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en"  ng-app="CodingMarketPlaceApp" ng-cloak>
+    <head>
+        <meta charset="utf-8">
+        <title>Coding Market Place</title>
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+        <link rel="stylesheet" href="bower_components/angular-material/angular-material.css"/>
+        <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        <link rel="stylesheet" href="css/app.css"/>
+        <link rel="stylesheet" href="css/upload.css"/>
+    </head>
+    <body id="allProjects" md-swipe-right="openSideNavPanel()" md-swipe-left="closeSideNavPanel()">
+        <div ng-controller="ToolbarCtrl">
+            <md-toolbar id="toolbar">
+                <div class="md-toolbar-tools">
+                    <md-button class="md-icon-button" 
+                               aria-label="Side Panel" ng-click="openSideNavPanel()" hide-gt-md>
+                        <md-icon md-svg-src="img/icons/menu.svg"></md-icon>
+                    </md-button>
+                    <h2>
+                        <span><a href="#/">Coding Market Place</a></span>
+                    </h2>
+                    <span flex></span>
+                    <md-input-container style="margin-bottom: 0px;margin-top: 10px;" 
+                                        hide-sm hide-md
+                                        ng-show="loggedIn && showSearch">
+                        <input ng-model="input.searchText"
+                               placeholder="Rechercher un projet" autofocus>
+                    </md-input-container>
+                    <md-button 
+                             aria-label="search project"
+                             ng-click="showSearch = true"
+                             hide-sm hide-md
+                             ng-show="loggedIn === true">
+                        Rechercher un projet
+                    </md-button>
+                    <md-button 
+                        aria-label="Gestion Admin" 
+                        ng-click="goAdmin()"
+                        hide-sm hide-md
+                        ng-show="loggedIn === true && isAdmin">
+                        Gestion Admin
+                    </md-button>
+                    <md-button 
+                        aria-label="Créer un projet" 
+                        ng-click="showDialogProjectCreate($event)"
+                        hide-sm hide-md
+                        ng-show="loggedIn === true && isProjectLeader">
+                        Créer un projet
+                    </md-button>
+                    <md-button 
+                        aria-label="Mon compte" 
+                        ng-click="myAccount()"
+                        hide-sm hide-md
+                        ng-show="loggedIn === true">
+                        Mon compte
+                    </md-button>
+                    <md-button class="md-icon-button" 
+                               aria-label="Side Panel" 
+                               ng-click="openSideNavNotif()"
+                               ng-show="loggedIn === true">
+                        <md-icon md-svg-src="img/icons/bell.svg" style="color: {{couleur}}"></md-icon>
+                    </md-button>
+                    <md-button 
+                        aria-label="Connexion" 
+                        ng-click="showDialogConnect($event)" 
+                        hide-sm hide-md
+                        ng-show="loggedIn !== true">
+                        Connexion
+                    </md-button>
+                    <md-button 
+                        aria-label="Inscription"
+                        ng-click="showDialogInscription($event)"
+                        hide-sm hide-md
+                        ng-show="loggedIn !== true">
+                        Inscription
+                    </md-button>
+                    <md-button
+                        aria-label="Déconnexion"
+                        ng-click="logOut()"
+                        hide-sm hide-md
+                        ng-show="loggedIn === true">
+                        Déconnexion
+                    </md-button>
+                </div>
+            </md-toolbar>
+            <md-sidenav hide-gt-md id="sidenav" class="md-sidenav-left md-whiteframe-z2"
+                        md-component-id="left" layout-wrap>
+                <md-button 
+                    class="wrappedToWindow"
+                    aria-label="Connexion" 
+                    ng-click="showDialogConnect($event)" 
+                    ng-show="loggedIn !== true">
+                    Connexion
+                </md-button>
+                <md-button 
+                    class="wrappedToWindow"
+                    aria-label="Inscription"
+                    ng-click="showDialogInscription($event)"
+                    ng-show="loggedIn !== true">
+                    Inscription
+                </md-button>
+                <span layout="row" layout-padding layout-margin>
+                    <md-input-container style=" margin:0;" 
+                                        ng-show="loggedIn === true" flex>
+                        <input ng-model="input.searchText"
+                               placeholder="Rechercher un projet" flex>
+                    </md-input-container>
+                    <md-icon md-svg-src="img/icons/search.svg"
+                             style="color:#fff" 
+                             aria-label="search project"
+                             ng-click="search()"
+                             ng-show="loggedIn === true">
+                    </md-icon>
+                </span>
+                <span flex></span>
+                <md-button 
+                    class="wrappedToWindow"
+                    aria-label="Gestion Admin" 
+                    ng-click="goAdmin()"
+                    ng-show="loggedIn === true && isAdmin">
+                    Gestion Admin
+                </md-button>
+                <md-button 
+                    class="wrappedToWindow"
+                    aria-label="Créer un projet" 
+                    ng-click="showDialogProjectCreate($event)"
+                    ng-show="loggedIn === true && isProjectLeader">
+                    Créer un projet
+                </md-button>
+                <md-button 
+                    class="wrappedToWindow"
+                    aria-label="Mon compte" 
+                    ng-click="myAccount()"
+                    ng-show="loggedIn === true">
+                    Mon compte
+                </md-button>
+                <md-button
+                    class="wrappedToWindow"
+                    aria-label="Déconnexion"
+                    ng-click="logOut()"
+                    ng-show="loggedIn === true">
+                    Déconnexion
+                </md-button>
+            </md-sidenav>
+
+            <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right" layout-wrap>
+
+                <md-toolbar class="md-theme-light">
+                    <h1 class="md-toolbar-tools">Notifications</h1>
+                </md-toolbar>
+                <md-content ng-controller="RightCtrl" layout-padding>
+                    <md-list-item class="md-3-line" ng-repeat="notif in notifs">
+                        <p>{{notif.Text}}</p>                
+                    </md-list-item>
+                </md-content>
+
+            </md-sidenav>
+        </div>
+    <md-content class="view-container" ng-view>
+    </md-content>
+
+    <div flex>
+        <footer ng-controller="FooterCtrl">
+            <a ng-click="showDialogContact($event)">Contactez-nous !</a>
+            <a href="#/legal-notice">Mentions légales</a>
+            <div>Conding Market Place - © PREB S.A.S.</div>
+        </footer>
+    </div>
+
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <!-- jquery file upload related. only needed if jquery file upload is used -->
+    <script src="bower_components/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
+    <script src="bower_components/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
+    <script src="bower_components/blueimp-file-upload/js/jquery.fileupload.js"></script>
+    <!-- end jquery file upload related -->
+    <script src="bower_components/cloudinary_js/js/jquery.cloudinary.js"></script>
+    <!-- angular file upload -->
+    <script src="bower_components/ng-file-upload/ng-file-upload-shim.js"></script>
+    <!-- angular dependencies -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <!-- cloudinary angular plugin -->
+    <script src="bower_components/cloudinary_ng/js/angular.cloudinary.js"></script>
+    <!-- angular file upload -->
+    <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
+
+    <script src="bower_components/angular-material/angular-material.min.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/cloudinary-core/cloudinary-core.js"></script>
+    <script src="bower_components/cloudinary-jquery/cloudinary-jquery.js"></script>
+    <script src="bower_components/cloudinary-jquery-file-upload/cloudinary-jquery-file-upload.js"></script>
+
+    <script src="js/app.js"></script>
+    <script src="js/toolbar.js"></script>
+    <script src="js/projects.js"></script>
+    <script src="js/project.js"></script>
+    <script src="js/user.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/config.js"></script>
+
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+</body>
+</html>

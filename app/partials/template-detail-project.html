@@ -1,0 +1,97 @@
+<div layout-margin 
+     layout-padding 
+     layout-wrap 
+     ng-controller="ProjectController">
+    <div layout-gt-sm="column">
+        <div class="descProject md-whiteframe-z1" 
+             layout-gt-sm="row" 
+             layout-margin 
+             layout-padding 
+             layout-wrap 
+             style="width: 75%;margin:auto;">
+            <img src="{{projet.ImageUrl}}" 
+                 flex-gt="50" 
+                 flex-sm="100">
+            <div layout="column" 
+                 layout-wrap
+                 layout-padding>
+                <h2>{{projet.Title}}</h2>
+                <a ng-click="showLeaderDetail()" 
+                   class="descLeader">
+                    Par {{leaderProject.FirstName}} {{leaderProject.LastName}}
+                </a>
+                <span>
+                    <md-icon md-svg-src="img/icons/calendar.svg"></md-icon>
+                    Durée estimée : {{projet.Duration}} jours
+                </span>
+                <span>
+                    <md-icon md-svg-src="img/icons/ticket.svg"></md-icon>
+                    Budget disponible : {{projet.Budget}} 
+                    <md-icon md-svg-src="img/icons/money.svg"></md-icon>
+                </span>
+                <span flex>
+                    <label>Description</label>
+                    <p flex>{{projet.Description}}</p>
+                </span>
+                <md-button class="md-raised md-primary" 
+                           ng-show="!currentLeader && isDevelopper && !alreadyApplied && !projet.over && !projet.started" 
+                           ng-click="ApplyProject()">
+                    Postuler pour le projet
+                </md-button>
+                <md-button class="md-raised md-primary"
+                           ng-show="currentLeader && !projet.over && !projet.started"
+                           ng-click="ValidateProjectDialog()">
+                    Valider le projet
+                </md-button>
+                <md-button class="md-raised md-primary"
+                           ng-show="currentLeader && !projet.over && projet.started"
+                           ng-click="FinishProject()">
+                    Terminer le projet
+                </md-button>
+            </div>
+        </div>    
+    </div>
+</div>
+
+<div layout-margin 
+     layout-padding 
+     layout-wrap>
+    <div layout-gt-sm="column">  
+        <div class="descProject md-whiteframe-z1" 
+             layout-gt-sm="row" 
+             layout-margin 
+             layout-padding 
+             layout-wrap 
+             style="width: 75%; margin:auto;">
+            <md-toolbar  ng-show="projet.started">
+                <div class="md-toolbar-tools">
+                    <h3>
+                        Développeur réalisant ce projet
+                    </h3>
+                </div>
+            </md-toolbar>
+            <md-toolbar  ng-show="!projet.started">
+                <div class="md-toolbar-tools">
+                    <h3>
+                        Développeurs postulants au projet
+                    </h3>
+                </div>
+            </md-toolbar>
+            <span flex="50" 
+                  ng-repeat="applicant in applicants">
+                <img class="roundedMediumImage" 
+                     src="{{applicant.ImageUrl}}" 
+                     flex-gt="50" 
+                     flex-sm="100"
+                     flex-md="100">
+
+                <div layout="column" 
+                     layout-wrap>
+                    <h2>{{applicant.FirstName}} {{applicant.LastName}} <span>({{applicant.Login}})</span></h2>
+                    <p>{{applicant.Description}}</p>
+                </div>
+            </span>
+        </div>    
+    </div>
+</div>
+

@@ -1,0 +1,225 @@
+<div class="account md-whiteframe-z1" 
+     layout-margin 
+     layout-wrap
+     ng-controller="UserController">
+    <h2 class="layout-padding ">Détails du compte</h2>
+    <div layout-gt-sm="column">
+        <div layout-gt-sm="row" 
+             layout-margin 
+             layout-padding
+             layout-wrap>
+            <img class="testimonial-picture" 
+                 src="{{user.ImageUrl}}" 
+                 flex-gt="50" 
+                 flex-sm="100">
+            <div layout="column"
+                 layout-wrap 
+                 flex>
+                <h3>{{user.FirstName}} {{user.LastName}}<span>({{user.Login}})</span></h3>
+                <h4 flex>E-mail : </h4>
+                <md-input-container> 
+                    <input type="email" 
+                           ng-model="user.Email" 
+                           ng-disabled="isDisabled">
+                </md-input-container>  
+                <span flex="100">
+                    <h4>Description de l'utilisateur</label>
+                        <md-input-container>
+                            <input type="text" 
+                                   ng-model="user.Description" 
+                                   ng-disabled="isDisabled">
+                        </md-input-container>
+                </span>
+                <md-button class="md-raised md-primary" 
+                           ng-click="showDialogContact($event)"
+                           ng-show="myAccount === false">Contacter {{user.FirstName}}
+                </md-button>
+                <div layout="column" 
+                     layout-wrap 
+                     flex 
+                     style="margin-top: 80px;" 
+                     hide-gt-sm
+                     ng-show="myAccount === true">
+                    <div ng-show="verif_password !== password">
+                        <p class="error">Erreurs : Les mots de passe doivent être identiques</p>
+                    </div>
+                    <md-input-container flex="50">
+                        <label>Mot de passe *</label>
+                        <md-icon md-svg-src="img/icons/password.svg" 
+                                 style="color: #FF8C00; margin-top: 28px;"></md-icon>
+                        <input ng-model="password" 
+                               placeholder="Mot de passe" 
+                               required>
+                    </md-input-container>
+                    <md-input-container flex="50">
+                        <label>Vérification du mot de passe *</label>
+                        <input ng-model="verif_password" 
+                               placeholder="Vérification du mot de passe" 
+                               compare-to="password">
+                    </md-input-container>
+                </div>
+                <md-button class="md-raised md-primary"
+                           ng-show="myAccount === true" 
+                           ng-click="saveModification()"
+                           style="width: 300px;">Enregistrer les modifications
+                </md-button>
+            </div>
+            <div layout="column" 
+                 layout-wrap 
+                 flex 
+                 style="margin-top: 80px;" 
+                 hide-gt-sm
+                 ng-show="myAccount === true">
+                <md-input-container flex="50">
+                    <label>Mot de passe *</label>
+                    <md-icon md-svg-src="img/icons/password.svg" 
+                             style="color: #FF8C00; margin-top: 28px;"></md-icon>
+                    <input ng-model="password" 
+                           placeholder="Mot de passe" 
+                           required>
+                </md-input-container>
+                <md-input-container flex="50">
+                    <label>Vérification du mot de passe *</label>
+                    <input ng-model="verif_password" 
+                           placeholder="Vérification du mot de passe" 
+                           compare-to="password">
+                </md-input-container>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="account md-whiteframe-z1" 
+     layout-margin  
+     layout-wrap
+     ng-show="isDevelopper">
+    <h2 class="layout-padding ">Projets en cours</h2>
+    <h3>{{user.FirstName}} postule actuellement pour les projets suivants :</h3>
+    <div layout-gt-sm="column">
+        <div layout-gt-sm="row" 
+             layout-margin 
+             layout-padding 
+             layout-wrap 
+             ng-repeat="projet in projects| filter: {over: false}" >
+            <img src="{{projet.ImageUrl}}" 
+                 flex-gt="50" 
+                 flex-sm="100">
+            <div layout="column" 
+                 layout-wrap>
+                <h4 class="projectName">{{projet.Title}}</h4>
+                <span flex="100">
+                    <label>Description</label>
+                    <p flex>{{projet.Description}}</p>
+                </span>
+                <md-button class="md-raised md-primary">
+                    <a ng-href="#/projects/{{projet.Id}}" 
+                       layout-align="bottom left">
+                        Voir les détails du projet
+                    </a>
+                </md-button>
+            </div>
+            <hr />
+        </div>
+    </div>
+</div>
+
+<div class="account md-whiteframe-z1" 
+     layout-margin
+     layout-wrap
+     ng-show="isDevelopper">
+    <h2 class="layout-padding ">Projets terminés</h2>
+    <h3>{{user.FirstName}} a réalisé les projets suivants :</h3>
+    <div layout-gt-sm="column">
+        <div layout-gt-sm="row" 
+             layout-margin 
+             layout-padding 
+             layout-wrap 
+             ng-repeat="projet in projects| filter: {over: true}" >
+            <img src="{{projet.ImageUrl}}" 
+                 flex-gt="50" 
+                 flex-sm="100">
+            <div layout="column" 
+                 layout-wrap>
+                <h4 class="projectName">{{projet.Title}}</h4>
+                <span flex="100">
+                    <label>Description</label>
+                    <p flex>{{projet.Description}}</p>
+                </span>
+                <md-button class="md-raised md-primary">
+                    <a ng-href="#/projects/{{projet.Id}}" 
+                       layout-align="bottom left">
+                        Voir les détails du projet
+                    </a>
+                </md-button>
+            </div>
+            <hr />
+        </div>
+    </div>
+</div>
+
+<div class="account md-whiteframe-z1"
+    layout-margin
+    layout-wrap
+    ng-show="isProjectCreator">
+    <h2 class="layout-padding">Projets proposés</h2>
+    <h3>{{user.FirstName}} propose les projets suivants :</h3>
+    <div layout-gt-sm="column">
+        <div layout-gt-sm="row" 
+             layout-margin 
+             layout-padding 
+             layout-wrap 
+             ng-repeat="projet in projects| filter: {over: false}" >
+            <img src="{{projet.ImageUrl}}" 
+                 flex-gt="50" 
+                 flex-sm="100">
+            <div layout="column" 
+                 layout-wrap>
+                <h4 class="projectName">{{projet.Title}}</h4>
+                <span flex="100">
+                    <label>Description</label>
+                    <p flex>{{projet.Description}}</p>
+                </span>
+                <md-button class="md-raised md-primary">
+                    <a ng-href="#/projects/{{projet.Id}}" 
+                       layout-align="bottom left">
+                        Voir les détails du projet
+                    </a>
+                </md-button>
+            </div>
+            <hr />
+        </div>
+    </div>
+</div>
+
+<div class="account md-whiteframe-z1"
+    layout-margin
+    layout-wrap
+    ng-show="isProjectCreator">
+    <h2 class="layout-padding">Projets terminés</h2>
+    <h3>{{user.FirstName}} a terminé les projets suivants :</h3>
+    <div layout-gt-sm="column">
+        <div layout-gt-sm="row" 
+         layout-margin 
+         layout-padding 
+         layout-wrap 
+         ng-repeat="projet in projects| filter: {over: true}" >
+        <img src="{{projet.ImageUrl}}" 
+             flex-gt="50" 
+             flex-sm="100">
+            <div layout="column" 
+             layout-wrap>
+                <h4 class="projectName">{{projet.Title}}</h4>
+                <span flex="100">
+                <label>Description</label>
+                <p flex>{{projet.Description}}</p>
+                </span>
+                <md-button class="md-raised md-primary">
+                    <a ng-href="#/projects/{{projet.Id}}" 
+                    layout-align="bottom left">
+                        Voir les détails du projet
+                    </a>
+                </md-button>
+            </div>
+        <hr />
+    </div>
+</div>

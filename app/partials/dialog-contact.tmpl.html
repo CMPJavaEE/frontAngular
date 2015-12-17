@@ -1,0 +1,46 @@
+<md-dialog aria-label="Contact" 
+           ng-cloak 
+           ng-controller="FooterCtrl">
+    <form>
+        <md-dialog-content layout-padding 
+                           layout="column">
+            <span layout="row">
+                <md-input-container flex="50">
+                    <label>Nom</label>
+                    <input type="text" 
+                           ng-model="lastName" 
+                           placeholder="Nom" 
+                           required>
+                </md-input-container>
+                <md-input-container flex="50">
+                    <label>Prénom</label>
+                    <input type="text" 
+                           ng-model="firstName" 
+                           placeholder="Nom" 
+                           required>
+                </md-input-container>
+            </span>
+            <span layout="row">
+                <md-input-container flex="100">
+                    <label>Adresse e-mail</label>
+                    <input type="text" 
+                           ng-model="email" 
+                           placeholder="Adresse e-mail" 
+                           required>
+                </md-input-container>
+            </span>
+            <span layout="row">
+                <md-input-container flex="100">
+                    <label>Message</label>
+                    <textarea placeholder="Message" 
+                              required 
+                              ng-model="content"></textarea>
+                </md-input-container>
+            </span>
+            <md-button class="md-primary md-raised"
+                       ng-click="">
+                Envoyer
+            </md-button>
+        </md-dialog-content>
+    </form>
+</md-dialog>
