@@ -2,7 +2,7 @@
 
 /* Directives */
 
-angular.module('CodingMarketPlaceApp', []).directive("compareTo", compareTo);
+angular.module('CodingMarketPlaceApp').directive("compareTo", compareTo);
 
 var compareTo = function () {
     return {

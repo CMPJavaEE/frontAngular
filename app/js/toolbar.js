@@ -1,4 +1,4 @@
-var toolbarApp = angular.module('toolbarApp', ['ngMaterial', 'ngFileUpload']);
+var toolbarApp = angular.module('toolbarApp', ['ngMaterial', 'ngFileUpload', 'CodingMarketPlaceApp']);
 
 toolbarApp.config(function ($httpProvider) {
     //Enable cross domain calls
@@ -7,7 +7,7 @@ toolbarApp.config(function ($httpProvider) {
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
 });
 
-toolbarApp.controller('ToolbarCtrl', function ($scope, $rootScope, $mdDialog, $http, $location, $cookies, $mdSidenav, $log) {
+toolbarApp.controller('ToolbarCtrl', function ($scope, $rootScope, $mdDialog, $http, $location, $cookies, $mdSidenav, $log, UserService) {
 
     //$rootScope
     $test = $cookies.get('loggedIn');
@@ -53,6 +53,8 @@ toolbarApp.controller('ToolbarCtrl', function ($scope, $rootScope, $mdDialog, $h
         ProjectCreator: $cookies.get('user_ProjectCreator') === "true" ? true : false || undefined,
         tags: ''
     };
+    
+    $scope.userService = UserService.data;
 
 
     ////////////////////////////

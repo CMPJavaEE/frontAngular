@@ -11,7 +11,8 @@ var codingMarketPlaceApp = angular.module('CodingMarketPlaceApp', [
     'projectApp',
     'userApp',
     'adminApp',
-    'footerApp'
+    'footerApp',
+    'ngResource'
 ]);
 
 codingMarketPlaceApp.config(function ($routeProvider) {

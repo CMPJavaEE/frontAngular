@@ -24,6 +24,9 @@
                 </md-input-container>  
                 <span flex="100">
                     <h4>Description de l'utilisateur</label>
+                    <md-chips ng-model="user.tags" readonly="!isDisabled">
+                        {{$chip.name}}
+                    </md-chips>
                         <md-input-container>
                             <input type="text" 
                                    ng-model="user.Description" 

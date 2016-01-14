@@ -125,7 +125,18 @@
                 placeholder="Enter a tag"
                 delete-button-label="Remove Tag"
                 delete-hint="Press delete to remove tag"
-                secondary-placeholder="+Tag"></md-chips>
+                secondary-placeholder="+Tag">
+
+                <md-autocomplete
+                    md-selected-item="selectedItem"
+                    md-search-text="searchText"
+                    md-items="item in querySearch(searchText)"
+                    md-item-text="item.name"
+                    placeholder="Ajouter un tag">
+                    <span md-highlight-text="searchText">{{item.name}}</span>
+                </md-autocomplete>
+
+            </md-chips>
             <md-input-container flex>
                 <label>Description</label>
                 <textarea ng-model="description" 
